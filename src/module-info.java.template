@@ -1,0 +1,7 @@
+module hello {
+    requires com.google.gson;
+
+    opens com.icuxika.entity to com.google.gson;
+
+    exports com.icuxika;
+}

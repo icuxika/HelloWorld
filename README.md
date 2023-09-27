@@ -115,3 +115,41 @@ C:\CommandLineTools\Java\jdk-20.0.2\bin\jpackage.exe --type app-image -i .\build
 
 -   项目模块化
 -   jlink 与 jpackage
+
+##### 在目录 src 下新建文件`module-info.java`
+
+```
+module hello {
+    requires com.google.gson;
+
+    opens com.icuxika.entity to com.google.gson;
+
+    exports com.icuxika;
+}
+```
+
+##### 编译
+
+```
+Get-ChildItem -Path .\src\ -Recurse -Filter *.java | Select-Object -ExpandProperty FullName | Out-File sources.txt; C:\CommandLineTools\Java\jdk-20.0.2\bin\javac -J-D"sun.stdout.encoding"=UTF-8 -J-D"sun.stderr.encoding"=UTF-8 --module-path .\library\ -d .\build\classes\ "@sources.txt"; Remove-Item sources.txt
+```
+
+##### Java 运行
+
+```
+C:\CommandLineTools\Java\jdk-20.0.2\bin\java --module-path ".\library\;.\build\classes\" -m "hello/com.icuxika.Main"
+```
+
+##### 创建 jar 包
+
+> 与`引入三方库`一致
+
+##### 运行 jar 包
+
+> 与`引入三方库`一致
+
+##### 使用 jlink 创建运行时映像，生成`.\build\jlink-build-dir\bin\Hello.bat`
+
+```
+C:\CommandLineTools\Java\jdk-20.0.2\bin\jlink.exe --module-path .\build\libs\ --add-modules java.base,hello --launcher Hello=hello/com.icuxika.Main --compress=2 --no-header-files --no-man-pages --strip-debug --output .\build\jlink-build-dir
+```
