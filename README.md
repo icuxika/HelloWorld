@@ -7,19 +7,19 @@
 ##### 编译
 
 ```
-C:\CommandLineTools\Java\jdk-20.0.2\bin\javac -d .\build\classes\ .\com\icuxika\Main.java
+javac -d .\build\classes\ .\com\icuxika\Main.java
 ```
 
 ##### Java 运行
 
 ```
-C:\CommandLineTools\Java\jdk-20.0.2\bin\java --class-path .\build\classes\ com.icuxika.Main
+java --class-path .\build\classes\ com.icuxika.Main
 ```
 
 ##### 创建 jar 包
 
 ```
-C:\CommandLineTools\Java\jdk-20.0.2\bin\jar -cef com.icuxika.Main .\build\libs\hello.jar .\build\classes\
+jar -cef com.icuxika.Main .\build\libs\hello.jar .\build\classes\
 ```
 
 ### 多个文件
@@ -27,27 +27,27 @@ C:\CommandLineTools\Java\jdk-20.0.2\bin\jar -cef com.icuxika.Main .\build\libs\h
 ##### 编译
 
 ```
-Get-ChildItem -Path .\src\ -Recurse -Filter *.java | Select-Object -ExpandProperty FullName | Out-File sources.txt; C:\CommandLineTools\Java\jdk-20.0.2\bin\javac -d .\build\classes\ "@sources.txt"; Remove-Item sources.txt
+Get-ChildItem -Path .\src\ -Recurse -Filter *.java | Select-Object -ExpandProperty FullName | Out-File sources.txt; javac -d .\build\classes\ "@sources.txt"; Remove-Item sources.txt
 ```
 
 ##### Java 运行
 
 ```
-C:\CommandLineTools\Java\jdk-20.0.2\bin\java --class-path .\build\classes\ com.icuxika.Main
+java --class-path .\build\classes\ com.icuxika.Main
 ```
 
 ##### 创建 jar 包
 
 ```
-C:\CommandLineTools\Java\jdk-20.0.2\bin\jar -cef com.icuxika.Main .\build\libs\hello.jar -C .\build\classes\ .
+jar -cef com.icuxika.Main .\build\libs\hello.jar -C .\build\classes\ .
 ```
 
-> C:\CommandLineTools\Java\jdk-20.0.2\bin\jar --create --file .\build\libs\hello.jar --main-class com.icuxika.Main -C .\build\classes\ .
+> jar --create --file .\build\libs\hello.jar --main-class com.icuxika.Main -C .\build\classes\ .
 
 ##### 运行 jar 包
 
 ```
-C:\CommandLineTools\Java\jdk-20.0.2\bin\java -jar .\build\libs\hello.jar
+java -jar .\build\libs\hello.jar
 ```
 
 ### 引入三方库
@@ -62,13 +62,13 @@ Invoke-WebRequest -Uri https://repo1.maven.org/maven2/com/google/code/gson/gson/
 ##### 编译
 
 ```
-Get-ChildItem -Path .\src\ -Recurse -Filter *.java | Select-Object -ExpandProperty FullName | Out-File sources.txt; C:\CommandLineTools\Java\jdk-20.0.2\bin\javac --class-path .\library\* -d .\build\classes\ "@sources.txt"; Remove-Item sources.txt
+Get-ChildItem -Path .\src\ -Recurse -Filter *.java | Select-Object -ExpandProperty FullName | Out-File sources.txt; javac --class-path .\library\* -d .\build\classes\ "@sources.txt"; Remove-Item sources.txt
 ```
 
 ##### Java 运行
 
 ```
-C:\CommandLineTools\Java\jdk-20.0.2\bin\java --class-path ".\library\*;.\build\classes\" com.icuxika.Main
+java --class-path ".\library\*;.\build\classes\" com.icuxika.Main
 ```
 
 ##### 创建 jar 包
@@ -78,10 +78,10 @@ C:\CommandLineTools\Java\jdk-20.0.2\bin\java --class-path ".\library\*;.\build\c
 ```
 
 ```
-C:\CommandLineTools\Java\jdk-20.0.2\bin\jar --create --file .\build\libs\hello.jar -m Manifest.txt --main-class com.icuxika.Main -C .\build\classes\ .
+jar --create --file .\build\libs\hello.jar -m Manifest.txt --main-class com.icuxika.Main -C .\build\classes\ .
 ```
 
-> C:\CommandLineTools\Java\jdk-20.0.2\bin\jar -cemf com.icuxika.Main Manifest.txt .\build\libs\hello.jar -C .\build\classes\ .
+> jar -cemf com.icuxika.Main Manifest.txt .\build\libs\hello.jar -C .\build\classes\ .
 
 ```
 Get-ChildItem -Path .\library\ -Filter *.jar | Select-Object -ExpandProperty FullName | ForEach-Object { Copy-Item $_ -Destination .\build\libs\ }
@@ -94,7 +94,7 @@ Remove-Item .\Manifest.txt
 ##### 运行 jar 包
 
 ```
-C:\CommandLineTools\Java\jdk-20.0.2\bin\java -jar .\build\libs\hello.jar
+java -jar .\build\libs\hello.jar
 ```
 
 ##### 使用 jpackage 为上面生成的非模块化 jar 包生成应用程序映像
@@ -102,7 +102,7 @@ C:\CommandLineTools\Java\jdk-20.0.2\bin\java -jar .\build\libs\hello.jar
 > `--win-console`用来支持标准输出流`System.out.println`
 
 ```
-C:\CommandLineTools\Java\jdk-20.0.2\bin\jpackage.exe --type app-image -i .\build\libs\ -n Hello --main-class com.icuxika.Main --main-jar .\hello.jar --dest .\build\image --win-console
+jpackage.exe --type app-image -i .\build\libs\ -n Hello --main-class com.icuxika.Main --main-jar .\hello.jar --dest .\build\image --win-console
 ```
 
 ##### 运行生成的 exe
@@ -131,13 +131,13 @@ module hello {
 ##### 编译
 
 ```
-Get-ChildItem -Path .\src\ -Recurse -Filter *.java | Select-Object -ExpandProperty FullName | Out-File sources.txt; C:\CommandLineTools\Java\jdk-20.0.2\bin\javac -J-D"sun.stdout.encoding"=UTF-8 -J-D"sun.stderr.encoding"=UTF-8 --module-path .\library\ -d .\build\classes\ "@sources.txt"; Remove-Item sources.txt
+Get-ChildItem -Path .\src\ -Recurse -Filter *.java | Select-Object -ExpandProperty FullName | Out-File sources.txt; javac --module-path .\library\ -d .\build\classes\ "@sources.txt"; Remove-Item sources.txt
 ```
 
 ##### Java 运行
 
 ```
-C:\CommandLineTools\Java\jdk-20.0.2\bin\java --module-path ".\library\;.\build\classes\" -m "hello/com.icuxika.Main"
+java --module-path ".\library\;.\build\classes\" -m "hello/com.icuxika.Main"
 ```
 
 ##### 创建 jar 包
@@ -151,5 +151,5 @@ C:\CommandLineTools\Java\jdk-20.0.2\bin\java --module-path ".\library\;.\build\c
 ##### 使用 jlink 创建运行时映像，生成`.\build\jlink-build-dir\bin\Hello.bat`
 
 ```
-C:\CommandLineTools\Java\jdk-20.0.2\bin\jlink.exe --module-path .\build\libs\ --add-modules java.base,hello --launcher Hello=hello/com.icuxika.Main --compress=2 --no-header-files --no-man-pages --strip-debug --output .\build\jlink-build-dir
+jlink.exe --module-path .\build\libs\ --add-modules java.base,hello --launcher Hello=hello/com.icuxika.Main --compress=2 --no-header-files --no-man-pages --strip-debug --output .\build\jlink-build-dir
 ```
