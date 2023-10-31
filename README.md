@@ -7,19 +7,19 @@
 ##### 编译
 
 ```
-javac -d .\build\classes\ .\com\icuxika\Main.java
+javac -d .\build\classes\ .\src\com\icuxika\Single.java
 ```
 
 ##### Java 运行
 
 ```
-java --class-path .\build\classes\ com.icuxika.Main
+java --class-path .\build\classes\ com.icuxika.Single
 ```
 
 ##### 创建 jar 包
 
 ```
-jar -cef com.icuxika.Main .\build\libs\hello.jar .\build\classes\
+jar -cef com.icuxika.Single .\build\libs\single.jar -C .\build\classes\ .
 ```
 
 ### 多个文件
